@@ -102,3 +102,11 @@
     - 如果对比前后，组件的类型相同，则暂时认为此组件不需要被更新
     - 如果对比前后，组件类型不同，则需要移除旧组件，创建新则兼，并追加到页面上；
 + element diff：在进行组件对比的时候，如果两个组件类型相同，则需要进行元素级别的对比，这叫做Element Diff
+
+#### 6. 创建基本的 webpack4.x 项目
+1. 运行 'npm init -y' 快速初始化项目
+2. 创建目录 'src' 存储源代码，'dist'产品目录，表示项目的发布目录
+3. 在 'src' 目录下创建index.html
+4. 会用npm 安装 webpack， 运行 npm install webpack -D '-D 表示安装到开发环境，-S表示安装到生产环境'
+    - 全局运行 npm i cnpm -g
+5. 安装 npm -i webpack-cli -D
