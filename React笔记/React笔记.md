@@ -145,8 +145,55 @@
         }
         ...
     ```
-    上面的例子,可以执行的命令有 `npm run build` 和 `npm run test`,这样可以新建一条命令，命令的内容调用 webpack 的命令
+    上面的例子,可以执行的命令有 `npm run build` 和 `npm run test`,这样可以新建一条命令，命令的内容调用 webpack 的命令，在使用 webpack 命令的时候，需要新建 webpack.config.js 文件，webpack命令默认会在根路径下，找对应的 js 文件，该文件表示在使用 webpack 打包命令的时候，调用哪些功能或者插件，webpack 只是一个 tool ，针对不同的文件，需要不同的插件或者modules 进行处理。如果需要指定配置文件，那么就需要在 `webpack --config 配置文件`，打包生成的文件都会放到 dist 目录下，该目录会自动生成;
 
+4. webpack 配置文件
+	- webpack入口文件的编译解析
+	```javascript
+		module.exports = {
+			entry: "./src/index.js",
+			// entry: {             与上方的写法一致,可以用这种方式来定义多个入口
+			//     main: "./src/index.js"
+			// },
+			output: {
+				path: path.resolve(__dirname, "dist"),  // 使用 process.pwd()来项目的根目录
+				// filename: "index.js"   默认名称是 main.js
+				filename: "[name].[hash:8].js"
+				// 使用 hash:8 来进行截断操作, hash实现根据文件生成 hash 值的方法,使用hash 的作用是为了防止线上更新的时候避免有缓存
+				// chunkHash 是根据每个文件来创建的不同的hash值，hash的方法是全局的，每个文件的hash值都是一样的，如果修改一个文件，所有的文件哈希值都会变化
+				// contentHash 是根据内容计算出来的 hash 值
+				// 目前使用 chunkHash 比较多
+			}
+		}
+	```
+	使用modules.exports 导出相关配置信息。配置信息以对象的方式存在。
+	- html 文件的编译解析，使用plugin 的html-webpack-plugin 插件来实现打包
+	```javascript
+	plugins:[
+        new HtmlWebpackPlugin(
+            {
+                filename:"dist_index.html",
+				// filename 表示生成的文件名称
+                template:"src/index.html"
+				// template 表示被解析的文件名称以及路径
+				title: "webpack html lesson"
+				// 使用title 定位html 文件的抬头，但是需要在html文件中<%= htmlWebpackPlugin.options.title %> 使用这个来定义网页标签名
+            }
+        ),
+    ]
+	```
+	- css 文件， 需要安装 `css-loader` 
+	```javascript
+	  module: {
+		rules: [
+		  {
+			test: /\.css$/i,
+			use: ['style-loader', 'css-loader'],
+		  },
+		],
+	  },
+	```
+	在 js 文件中引用该 css文件才能将css 文件嵌入到html 文件中，其实是嵌入到 js 文件中，只不过在执行js的过程中，该css 被加载
 ##### 在项目中使用 react
 1. 运行 'cnpm install react react-dom -S' 安装包
     - react： 专门用于创建组件和虚拟DOM 的，同时组件的生命周期都在这个包中
@@ -156,3 +203,47 @@
     <!-- 容器，将来，使用React 创建的虚拟 DOM 元素，都会被渲染到这个指定的容器中-->
     <div id="app"></div>
 ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
