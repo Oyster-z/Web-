@@ -109,4 +109,50 @@
 3. 在 'src' 目录下创建index.html
 4. 会用npm 安装 webpack， 运行 npm install webpack -D '-D 表示安装到开发环境，-S表示安装到生产环境'
     - 全局运行 npm i cnpm -g
-5. 安装 npm -i webpack-cli -D
+5. 安装 npm -i webpack-cli -D `可以使用 npm install webpack webpack-cli -D 来安装，使用cnpm 可以提高安装工速度，是采用淘宝的源进行安装`, 3.6 版本中 webpack 包含 webpack-cli 但是 4.x 之后就要分开安装。
+6. 增加webpack.config.js 文件
+```javascript
+    // 向外暴露一个大包的配置对象，因为 webpack 是基于Node 构建的，所以 webpack 支持所有的 Node API 和语法
+    module.export = {
+        mode: 'development',   // development or production 
+        // development 表示开发模式，不会对相关文件进行压缩，但是 production 表示生产模式，会对文件内容进行压缩，这样文件的大小就会变小。
+        // 在 webpack 4.x 中，有一个很大的特性，就是约定大于配置值 ，约定，默认的大包入口路径是 src->index.js,所以将
+        // src目录下的main.js 改为 index.js
+    }
+    // ES6 中向外导出的api 导入的 使用 import ** from '标识符'
+    // export default{}
+```
+7. 注意： webpack 4.x 提供了约定大于配置的概念，目的是为了尽量减少 配置文件的体积：
+    - 默认约定了：
+    - 打包的入口是 `src->index.hs`
+    - 打包的输出文件是 `dist->main.js`
+    - 4.x 中新增了 `mode`选项(必选项)，可选的值为 production 和 development
+8. 为了实现实时打包功能，需要安装 webpack-dev-server
+    - 安装 cnpm install webpack-dev-server
+    - 修改 package.json 文件，增加 dev: "webpack-dev-server", 使用npm run 就会自动调用 package.json 里面的dev 里面的脚本
+
+##### 补充 webpack 相关知识
+1. 浏览器只能识别 js png jpg css 文件，但是我们在完成代码的时候 可能会用到其它相关的文件，这时候就需要一个工具来对这些文件进行转换，webpack 属于这种工具的一种，目前还有 rollup(用在javascript), parcel, FIS 等相关工具。
+2. 安装和启动
+    `使用 npm install webpack webpack-cli` 来安装，安装之后，不能在 terminal下直接使用 webpack 的命令方式来执行webpack 的命令
+3. 执行webpack 命令
+    利用 npm 命令来进行执行，在 package.json 文件中的 scripts 标签下，增加响应的 npm 脚本命令，scripts 中表示的是脚本命令，使用 npm run + 脚本命令执行
+    ```json
+        ...
+        "scripts": {
+            "build": "webpack --mode development",        
+            "test": "echo \"Error: no test specified\" && exit 1"
+        }
+        ...
+    ```
+    上面的例子,可以执行的命令有 `npm run build` 和 `npm run test`,这样可以新建一条命令，命令的内容调用 webpack 的命令
+
+##### 在项目中使用 react
+1. 运行 'cnpm install react react-dom -S' 安装包
+    - react： 专门用于创建组件和虚拟DOM 的，同时组件的生命周期都在这个包中
+    - react-dom： 专门进行DOM操作的，最主要的应用场景，就是 ReactDOM.render()
+2. 在 index.js 页面中，创建容器：
+```html
+    <!-- 容器，将来，使用React 创建的虚拟 DOM 元素，都会被渲染到这个指定的容器中-->
+    <div id="app"></div>
+```
