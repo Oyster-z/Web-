@@ -225,6 +225,14 @@ react-VR：虚拟现实
 9. react 创建组件的第二种方式: 使用类的方式
 10. react 创建组件的第三种方式：使用React.createElement 的方法进行创建
 
+>1. 在你的GitHub上新建个仓库，把地址复制下来备用
+>2. 项目所在文件夹下git init
+>3. git add . （点的意思是所有文件，把所有文件添加上去）
+>4. git commit -m "xxxxxxxxxx"（提交信息）
+>5. git remote add origin https://github.com/xxx/xxx（刚才你在GitHub上保存的地址）
+>6. git pull origin master（上传之前先拉一下，第一次不拉也行，但是之后提交最好想成这个习惯）
+>6. git push -u origin master（把你的代码提到GitHub上）
+
 
 
 
