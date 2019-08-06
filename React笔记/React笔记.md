@@ -203,9 +203,27 @@
     <!-- 容器，将来，使用React 创建的虚拟 DOM 元素，都会被渲染到这个指定的容器中-->
     <div id="app"></div>
 ```
+fiber 算法和 diff 算法
+fiber 算法把渲染的进程设置成异步，且对渲染流程进行优先级控制。
 
+3. react 的几个特点
+- 虚拟DOM 
+- 组件化
+- jsX(javascriptxml)
 
+react-native :可以将js代码转换成 object-c java 来完成app应用
+react-web 
+react-VR：虚拟现实 
 
+16 16.3 16.8 三个版本需要注意，16版本的写法有了比较大的变化
+
+4. npx create-react-app 01.react-tuts
+5. 删除 src 下文件
+6. 安装 vscode 插件 ES7 React/Redux/GraphQL/React-Native snippets
+7. npm start
+8. react 创建组件的第一种方式：箭头函数
+9. react 创建组件的第二种方式: 使用类的方式
+10. react 创建组件的第三种方式：使用React.createElement 的方法进行创建
 
 
 
