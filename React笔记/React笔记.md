@@ -224,6 +224,55 @@ react-VR：虚拟现实
 8. react 创建组件的第一种方式：箭头函数
 9. react 创建组件的第二种方式: 使用类的方式
 10. react 创建组件的第三种方式：使用React.createElement 的方法进行创建
+- react 增加组件 css 样式的时候
+    1. 使用内联的方式，在里面直接添加
+    ```javascript
+    class App extends Component {
+        render (){
+            const style = {color: 'red'};
+            return(
+                <div>
+                    {/* 第一种使用css的方式，采用js的方式 */}
+                    <h1 style={style}>元素中的样式</h1>
+                </div>
+            )
+        }
+    }
+    ```
+    2. 使用引入 css文件和类名的方式，引入css文件
+    ```css
+        <!-- index.css -->
+        .has-text-color{
+            color: gold
+        }
+    ```
+    ```javascript
+        import './index.css'
+        class App extends Component {
+            render (){
+                const style = {color: 'red'};
+                return(
+                    <div>
+                        {/* 第一种使用css的方式，采用js的方式 */}
+                        <h1 className='has-text-color'>元素中的样式</h1>
+                    </div>
+                )
+            }
+        }                 
+    ```
+    3. 使用工具来动态添加不同的class 来配置css
+    ```javascript
+     <li className={classNames('a', {'b': true, 'c': false})}>
+    ```
+    4. style-components 插件,利用 styled-components 来实现封装单独组件
+    ```javascript
+        <!-- 单独定义一个组件 -->
+        const Title = styled.h1`color: purple`
+
+        <!-- <h1>h1标签<h1> -->
+        <!-- 替换为下面的组件标签 -->
+        <Title>h1标签</Title>
+    ```
 
 >1. 在你的GitHub上新建个仓库，把地址复制下来备用
 >2. 项目所在文件夹下git init
