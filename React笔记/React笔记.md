@@ -1,3 +1,10 @@
+<!--
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-07-30 23:11:36
+ * @LastEditTime: 2019-08-12 23:34:22
+ * @LastEditors: Please set LastEditors
+ -->
 #### 1. React简介  
 两个概念：  
 + **Library(库) :** 小而巧的库，只提供特定的API，优点就是船小好调头，可以很方便的从一个库切换到另外的库，但是代码几乎不会改变  
@@ -282,9 +289,46 @@ react-VR：虚拟现实
 >6. git pull origin master（上传之前先拉一下，第一次不拉也行，但是之后提交最好想成这个习惯）
 >6. git push -u origin master（把你的代码提到GitHub上）
 
+##### react 组件化目录组织模式
+1. index.js 是入口文件
+```javascript
+    import React, { Component } from 'react'
 
+    export class App extends Component{
+        render(){
+            return (
+                <div>
+                </div>
+            )
+        }
+    }
+    // 可以在安装插件  ES7 React/Redux/GraphQL/React-Native snippets 之后
+    // 直接使用 rcc(react class component ) 来快速完成上述代码 rfc(react function component) 函数式组件
+```
 
+2. src目录下封装组件
+```shell
+    #src---
+    #    index.js    import XX from './App'
+    #    App.js      import {TodoHeader, TodoList} from './components'
+    #    |-component
+    #        |-index.js
+    #        |-TodoHeader  // 组件
+    #            |-TodoHeader.js / index.js #使用index.js 的好处是在引用的index.js 的时候只要指定目录即可，程序会默认找index.js
+    #        |-TodoList
+    #            |-TodoList.js
+    #            |-TodoItem.js
+```
 
+3. 每个组件只能有一个根元素，当多个元素组合的时候需要加一个 div 标签，当不需要使用 div 来做父元素的时候，可以使用react 的 Fragment 空标签,或者在引入 Fragment 之后 直接使用 空标签
+
+```javascript
+    import react, {Component, Fragment} from 'react'
+    <Fragment>
+    </Fragment>
+    // 或者直接使用空标签，但是也是需要引入 Fragment 
+    <></>
+```
 
 
 
