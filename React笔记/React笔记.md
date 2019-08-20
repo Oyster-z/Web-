@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-07-30 23:11:36
- * @LastEditTime: 2019-08-12 23:34:22
+ * @LastEditTime: 2019-08-21 00:56:09
  * @LastEditors: Please set LastEditors
  -->
 #### 1. React简介  
@@ -329,15 +329,90 @@ react-VR：虚拟现实
     // 或者直接使用空标签，但是也是需要引入 Fragment 
     <></>
 ```
+##### 组件数据挂在，通过props
 
+- 函数组件，可以使用props 作为函数参数传递
+- 类组件，需要使用 this.props 来获取
 
+当使用组件作为标签名使用的时候，标签内容会成为 props.children 的内容,在react 组件的属性时，如果想传入数字，则需要使用花括号进行包裹，这样就可以完成转换。
+如果需要检测传入到 props 的类型，并通过类型判断并作出操作。就需要安装一个插件，prop-types。
 
+检测方式：
+```javascript
+    // 首先安装该插件
+    npm install --save prop-types
+    // 引入该插件
+    import PropTypes from 'prop-types'
 
+    // 函数组件，在函数的外面写写上
+    组件名.propTypes = {
+        属性1: PropTypes.string,
+        属性2: PropTypes.number,            // 检测该属性的值的类型是否符合要求
+        属性3: PropTypes.number.isRequired, // 检测是否有该属性
+    }
+    // 类组件，在组件中写
+    static propTypes = {
+        属性1: PropTypes.string,
+        属性2: PropTypes.number        
+    }
+```
+prop-types 还可以检查是否需要参数，如属性3
+当没有指定参数的值，但是项目中又不希望项目执行失败，这就需要给这些参数一个默认的值，可以使用 prop-types 来实现
+```javascript
+// 类组件中，在组件内部完成
+static defaultProps = {
+    属性名: "默认值"
+}
 
+// 函数组件，在组件外部完成
+组件名.propTypes = {
+    属性名: "默认值"
+}
+```
+##### react组件 state 模型
+除了使用 props 的方式来传递参数，也可以使用state 方式来完成组件内部状态的定义 `注意：state 只有在 class 组件中才会有`
 
+函数式组件也叫无状态组件，类组件也叫有状态组件
+非受控组件（组件的状态由自己控制）
+受控组件（该组件的所有的状态都是没有的，都是由 props 来定义的），好处是：组件的状态统一化
+半受控组件
+1. 直接在组件中定义 state 属性
+```javascript
+state = {
+    title: "这是标题"
+}
+```
+2. 在组件的 constructor 中定义
+```javascript
+constructor{
+    super()
+    this.state = {
+        title: "这是标题"
+    }
+}
+```
+使用 state 的方式可以统一所有的组件属性
 
-
-
+##### 模板渲染语法以及 props 向下传递的技巧
+1. 三元表达式
+2. 使用 map 的方式来渲染列表
+```javascript
+// 遍历 todos 里面的所有元素。
+    this.props.todos.map(todo => {
+        return (
+            <TodoItem
+                id ={todo.id}
+                desc={todo.desc}
+                iscompleted={todo.iscompleted}
+            />
+        )   
+    })
+```
+3. 标签内带有标签的 需要使用 dangerouslySetInnerHtml
+```javascript
+<div dangerouslySetHtml={{__html:this.props.article}}></div>
+```
+4. react 展开的方式，使用 {...todo},直接在原先每个需要遍历赋值的地方使用，可以代替原先的使用方式。
 
 
 
